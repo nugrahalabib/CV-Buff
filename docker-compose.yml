@@ -1,0 +1,18 @@
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "1713:1713"
+    # Provides GOOGLE_* / BETTER_AUTH_* / DATABASE_URL from your local .env.
+    # For this compose, point DATABASE_URL at the host-exposed Postgres, e.g.:
+    #   DATABASE_URL=postgresql://cvbuff_user:PASS@host.docker.internal:5432/cvbuff
+    env_file: .env
+    environment:
+      - NODE_ENV=production
+    # lets the container reach a Postgres published on the host (host.docker.internal)
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always

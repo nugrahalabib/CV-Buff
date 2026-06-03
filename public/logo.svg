@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <style>
+    .bg { fill: #0f172a; }
+    .fg { fill: #ffffff; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #ffffff; }
+      .fg { fill: #0f172a; }
+    }
+  </style>
+  <rect class="bg" width="200" height="200" rx="44" />
+  <text class="fg" x="50%" y="50%" text-anchor="middle" dominant-baseline="central"
+        font-family="'Plus Jakarta Sans', 'Inter', system-ui, sans-serif"
+        font-weight="800" font-size="86" letter-spacing="-3">CV</text>
+  <circle class="fg" cx="160" cy="48" r="6" />
+</svg>

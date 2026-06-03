@@ -1,0 +1,808 @@
+{
+  "common": {
+    "title": "CV-Buff",
+    "subtitle": "Editor CV Berbasis AI",
+    "description": "CV-Buff adalah editor CV open-source — gratis dan aman. Login dengan Google, CV tersimpan di akunmu (terisolasi penuh per pengguna), dan bisa diekspor ke PDF/JSON/Markdown kapan saja.",
+    "dashboard": "Dashboard",
+    "edit": "Edit",
+    "delete": "Hapus",
+    "newResume": "CV Baru",
+    "copy": "Salin",
+    "cancel": "Batal",
+    "confirm": "Konfirmasi",
+    "deleteSuccess": "Berhasil dihapus",
+    "deleteModuleConfirm": "Apakah Anda yakin ingin menghapus modul ini? Tindakan ini tidak dapat dibatalkan.",
+    "configured": "Sudah dikonfigurasi",
+    "notConfigured": "Belum dikonfigurasi"
+  },
+  "home": {
+    "header": {
+      "title": "CV-Buff",
+      "startButton": "Mulai",
+      "features": "Fitur",
+      "pricing": "Harga",
+      "about": "Tentang",
+      "login": "Masuk",
+      "register": "Daftar",
+      "dashboard": "Dashboard"
+    },
+    "hero": {
+      "badge": "Pembuatan CV Cerdas",
+      "title": "Buat CV Anda Lebih Mudah dan Cerdas",
+      "subtitle": "CV-Buff menggunakan teknologi AI untuk membantu Anda membuat CV profesional dengan cepat. Tanpa registrasi, gratis digunakan, dengan penyimpanan data yang aman.",
+      "cta": "Mulai Sekarang",
+      "secondary": "Lihat Template"
+    },
+    "features": {
+      "title": "Mengapa memilih CV-Buff?",
+      "subtitle": "Kami menyediakan solusi CV all-in-one agar perjalanan mencari kerja Anda lebih mulus",
+      "ai": {
+        "badge": "Pemeriksaan AI Cerdas",
+        "title": "Deteksi Cerdas, Saran Profesional",
+        "description": "Pemeriksa tata bahasa AI terintegrasi otomatis mengidentifikasi ungkapan yang kurang tepat dan memberikan saran perbaikan profesional, agar CV Anda lebih menonjol.",
+        "item1": "Penyempurnaan otomatis",
+        "item1_description": "AI mengoptimalkan ekspresi konten otomatis, membuat CV Anda lebih profesional",
+        "item2": "Pemeriksaan tata bahasa",
+        "item2_description": "Mendeteksi dan memperbaiki kesalahan tata bahasa serta ejaan secara otomatis"
+      },
+      "storage": {
+        "badge": "Tersimpan di Akun",
+        "title": "Data Aman, Terisolasi per Akun",
+        "description": "Semua CV tersimpan aman di akunmu dan terisolasi penuh dari pengguna lain. Bisa diekspor ke PDF/JSON/Markdown kapan saja.",
+        "item1": "Tersimpan per-akun",
+        "item1_description": "CV hanya bisa diakses oleh akunmu sendiri",
+        "item2": "Beragam format ekspor",
+        "item2_description": "Mendukung ekspor format PDF dan JSON",
+        "item3": "Mendukung ekspor cadangan data"
+      },
+      "preview": {
+        "badge": "Pratinjau Real-time",
+        "title": "What You See Is What You Get",
+        "item1": "Pratinjau hasil edit real-time",
+        "item2": "Dukungan beragam format ekspor"
+      }
+    },
+    "news": {
+      "label": "Berita",
+      "content": "Fitur Baru: Penyempurnaan CV dengan AI Telah Tersedia"
+    },
+    "footer": {
+      "copyright": "© 2026 CV-Buff oleh Nugraha Labib Mujaddid. Hak cipta dilindungi."
+    },
+    "changelog": "Changelog",
+    "cta": {
+      "title": "Mulai Babak Karier Baru Anda",
+      "description": "Gunakan CV-Buff sekarang untuk membuat CV yang berkesan",
+      "button": "Mulai Gratis"
+    },
+    "faq": {
+      "title": "Pertanyaan Umum",
+      "items": [
+        {
+          "question": "Apakah CV-Buff gratis digunakan?",
+          "answer": "CV-Buff saat ini gratis dan memenuhi kebutuhan dasar pembuatan CV. Fitur versi open-source akan tetap tersedia."
+        },
+        {
+          "question": "Apakah data CV saya aman?",
+          "answer": "Ya. Setiap CV tersimpan di akunmu dan terisolasi penuh — tidak ada pengguna lain yang bisa mengaksesnya. Bahkan kunci API AI-mu tidak pernah dikirim ke server (tetap di browser)."
+        },
+        {
+          "question": "Format ekspor apa yang didukung?",
+          "answer": "Saat ini kami mendukung ekspor PDF, sehingga CV Anda menjaga format yang konsisten di perangkat apapun. Kami berencana menambah lebih banyak format ekspor di masa depan."
+        },
+        {
+          "question": "Bagaimana cara sinkronisasi antar perangkat?",
+          "answer": "Cukup login dengan akun Google yang sama di perangkat lain — semua CV-mu otomatis tersedia karena tersimpan di akunmu."
+        },
+        {
+          "question": "Seberapa fleksibel kustomisasinya?",
+          "answer": "Kami menawarkan banyak opsi kustomisasi, termasuk warna, tata letak, dan lainnya, agar Anda dapat menyesuaikan gaya CV sesuai preferensi pribadi dan kebutuhan industri."
+        }
+      ]
+    }
+  },
+  "dashboard": {
+    "sidebar": {
+      "appName": "CV-Buff",
+      "resumes": "CV Saya",
+      "settings": "Pengaturan",
+      "templates": "Template",
+      "ai": "Konfigurasi AI"
+    },
+    "resumes": {
+      "created": "Dibuat",
+      "myResume": "CV Saya",
+      "create": "Buat CV",
+      "newResume": "CV Baru",
+      "newResumeDescription": "Buat CV baru untuk memulai.",
+      "import": "Impor CV",
+      "untitled": "CV tanpa judul",
+      "importSuccess": "Konfigurasi berhasil diimpor",
+      "importError": "Gagal mengimpor, periksa format file",
+      "importDialog": {
+        "title": "Impor CV",
+        "jsonTitle": "Impor JSON",
+        "jsonDescription": "Impor file konfigurasi CV (.json) yang sudah diekspor",
+        "pdfTitle": "Impor PDF",
+        "pdfDescription": "Gunakan AI untuk mengubah PDF menjadi data CV terstruktur",
+        "importing": "Mengimpor, mohon tunggu...",
+        "geminiConfigRequired": "Silakan konfigurasi Gemini API Key dan Model ID di pengaturan AI terlebih dahulu",
+        "pdfSuccess": "PDF berhasil diimpor",
+        "pdfError": "Gagal mengimpor PDF. Periksa konten PDF atau konfigurasi Gemini"
+      },
+      "deleteConfirmTitle": "Konfirmasi Hapus CV?",
+      "deleteConfirmDescription": "Tindakan ini tidak dapat dibatalkan. Ini akan menghapus CV ini secara permanen dari akun Anda.",
+      "createDialog": {
+        "title": "Buat CV Baru",
+        "description": "Mulai CV baru dari template kosong",
+        "tabs": {
+          "fromTemplate": "Dari Template",
+          "uploadFile": "Unggah File"
+        },
+        "namePlaceholder": "Nama",
+        "switchTemplate": "Ganti Template",
+        "cancel": "Batal",
+        "create": "Buat",
+        "blankTitle": "CV Kosong",
+        "startFromBlank": "Mulai dari Kosong",
+        "startFromTemplate": "Mulai dari Template",
+        "blankCardDescription": "Gunakan tata letak default bawaan dan mulai dari nol.",
+        "blankThumbnailDescription": "Mulai dengan halaman bersih dan rancang CV dengan kontrol kreatif penuh.",
+        "createNow": "Buat Sekarang",
+        "backToGrid": "Kembali ke daftar template",
+        "blankPreviewDescription": "Pilih halaman kosong dan bangun semuanya dari nol, tanpa batasan apapun.",
+        "useThisTemplate": "Gunakan Template Ini",
+        "sample": {
+          "company": "Tokopedia",
+          "position": "Senior Software Engineer",
+          "present": "Sekarang",
+          "workDescription": "Memimpin tim frontend dan meningkatkan performa halaman sebesar 40%."
+        }
+      }
+    },
+    "settings": {
+      "title": "Pengaturan",
+      "ai": {
+        "title": "Konfigurasi AI",
+        "currentModel": "Provider Aktif",
+        "selectModel": "Pilih Provider",
+        "getApiKey": "Dapatkan API Key",
+        "addCustomProvider": "Tambah Provider Custom",
+        "removeProvider": "Hapus Provider",
+        "advancedToggle": "Pengaturan Lanjutan",
+        "fields": {
+          "name": "Nama Provider",
+          "protocol": "Protokol",
+          "endpoint": "Endpoint",
+          "apiKey": "API Key",
+          "modelId": "Model ID",
+          "customHeaders": "Header Kustom (JSON)"
+        },
+        "protocols": {
+          "openai-compatible": "OpenAI Compatible",
+          "anthropic": "Anthropic",
+          "gemini": "Google Gemini"
+        },
+        "openai": {
+          "title": "OpenAI",
+          "description": "Dapatkan API key di OpenAI atau platform terbuka yang kompatibel dengan format OpenAI",
+          "apiKey": "OpenAI API Key",
+          "modelId": "Model ID",
+          "apiEndpoint": "API Endpoint, contoh: https://api.openai.com/v1"
+        },
+        "claude": {
+          "title": "Anthropic Claude",
+          "description": "Dapatkan API key di Anthropic Console. Mendukung claude-sonnet-4-6, claude-opus-4-7, claude-haiku-4-5.",
+          "apiKey": "Anthropic API Key",
+          "modelId": "Claude Model ID"
+        },
+        "gemini": {
+          "title": "Google Gemini",
+          "description": "Mendukung penyempurnaan, pemeriksaan tata bahasa, dan impor PDF. Model rekomendasi: gemini-flash-latest",
+          "apiKey": "Gemini API Key",
+          "modelId": "Gemini Model ID"
+        },
+        "custom": {
+          "title": "Provider Custom",
+          "description": "Tambahkan provider AI apapun yang kompatibel dengan protokol OpenAI/Anthropic/Gemini",
+          "namePlaceholder": "mis. Groq, OpenRouter, Ollama",
+          "endpointPlaceholder": "URL endpoint provider"
+        }
+      }
+    },
+    "templates": {
+      "title": "Template",
+      "useTemplate": "Gunakan Template",
+      "preview": "Pratinjau",
+      "switchTemplate": "Ganti Template",
+      "classic": {
+        "name": "Klasik",
+        "description": "Tata letak tradisional minimalis, cocok untuk sebagian besar lamaran kerja"
+      },
+      "modern": {
+        "name": "Dua Kolom",
+        "description": "Tata letak dua kolom klasik, menonjolkan karakteristik personal"
+      },
+      "leftRight": {
+        "name": "Latar Judul Bagian",
+        "description": "Judul bagian khas dengan warna latar"
+      },
+      "timeline": {
+        "name": "Tata Letak Linimasa",
+        "description": "Gaya linimasa, menekankan urutan kronologis pengalaman"
+      },
+      "minimalist": {
+        "name": "Minimalis",
+        "description": "Banyak ruang putih, tata letak bersih dan murni"
+      },
+
+      "elegant": {
+        "name": "Elegan",
+        "description": "Desain satu kolom dengan judul terpusat, sentuhan elegan"
+      },
+      "creative": {
+        "name": "Kreatif",
+        "description": "Desain kontras visual, hidup dan personal"
+      },
+      "editorial": {
+        "name": "Editorial",
+        "description": "Perpaduan mewah serif tebal dan sans-serif yang elegan"
+      }
+    }
+  },
+  "pdfExport": {
+    "modal": {
+      "title": "Ekspor CV",
+      "subtitle": "Pilih format ekspor CV Anda",
+      "pdfDesc": "Render presisi tinggi dengan akurasi format 100%. Direkomendasikan untuk lamaran kerja.",
+      "printDesc": "Simpan via dialog cetak sistem. Gunakan sebagai cadangan atau untuk margin kustom.",
+      "jsonDesc": "Ekspor data CV sebagai JSON untuk cadangan atau transfer antar perangkat.",
+      "markdownDesc": "Konversi ke teks Markdown polos untuk berbagi dengan model AI."
+    },
+    "button": {
+      "export": "Ekspor",
+      "exportPdf": "Ekspor PDF (Server)",
+      "exportJson": "Ekspor JSON",
+      "exportMarkdown": "Ekspor Markdown",
+      "exporting": "Mengekspor...",
+      "exportingJson": "Mengekspor...",
+      "exportingMarkdown": "Mengekspor...",
+      "print": "Cetak Browser"
+    },
+    "toast": {
+      "success": "PDF berhasil diekspor",
+      "error": "Gagal mengekspor PDF",
+      "jsonSuccess": "Konfigurasi berhasil diekspor",
+      "jsonError": "Gagal mengekspor konfigurasi",
+      "markdownSuccess": "Markdown berhasil diekspor",
+      "markdownError": "Gagal mengekspor Markdown"
+    }
+  },
+  "previewDock": {
+    "switchTemplate": "Ganti Template",
+    "grammarCheck": {
+      "idle": "Pemeriksa Tata Bahasa AI",
+      "checking": "Memeriksa...",
+      "configurePrompt": "Silakan konfigurasi provider AI",
+      "configureButton": "Konfigurasi",
+      "errorToast": "Pemeriksaan tata bahasa gagal, silakan coba lagi"
+    },
+    "sidePanel": {
+      "expand": "Buka Panel Samping",
+      "collapse": "Tutup Panel Samping"
+    },
+    "editPanel": {
+      "expand": "Buka Panel Edit",
+      "collapse": "Tutup Panel Edit"
+    },
+    "previewPanel": {
+      "expand": "Buka Panel Pratinjau",
+      "collapse": "Tutup Panel Pratinjau"
+    },
+    "backToDashboard": "Kembali ke Dashboard",
+    "copyResume": {
+      "tooltip": "Salin CV",
+      "success": "CV berhasil disalin",
+      "error": "Gagal menyalin CV"
+    },
+    "export": {
+      "tooltip": "Ekspor CV",
+      "pdf": "Ekspor PDF",
+      "json": "Ekspor JSON",
+      "markdown": "Ekspor Markdown",
+      "print": "Cetak"
+    },
+    "autoOnePage": {
+      "tooltip": "Sesuaikan ke Satu Halaman",
+      "enabled": "Mode satu halaman aktif",
+      "disabled": "Mode satu halaman nonaktif",
+      "cannotFit": "Konten terlalu banyak. Sudah dioptimalkan semaksimal mungkin tetapi tidak muat dalam satu halaman. Coba sederhanakan konten atau atur margin dan ukuran font di sidebar."
+    }
+  },
+  "workbench": {
+    "sidePanel": {
+      "layout": {
+        "title": "Tata Letak",
+        "addCustomSection": "Tambah Modul",
+        "addCustomSectionOption": "Tambah Bagian Kustom",
+        "standardSections": {
+          "skills": "Keahlian",
+          "experience": "Pengalaman Kerja",
+          "projects": "Proyek",
+          "education": "Pendidikan",
+          "selfEvaluation": "Evaluasi Diri",
+          "certificates": "Sertifikat"
+        }
+      },
+      "theme": {
+        "title": "Warna Tema",
+        "custom": "Kustom"
+      },
+      "typography": {
+        "title": "Tipografi",
+        "font": {
+          "title": "Font",
+          "plusJakartaSans": "Plus Jakarta Sans",
+          "inter": "Inter",
+          "poppins": "Poppins",
+          "lora": "Lora"
+        },
+        "lineHeight": {
+          "title": "Tinggi Baris",
+          "normal": "Default",
+          "relaxed": "Sedang",
+          "loose": "Renggang"
+        },
+        "baseFontSize": {
+          "title": "Ukuran Font Dasar"
+        },
+        "headerSize": {
+          "title": "Ukuran Judul Bagian"
+        },
+        "subheaderSize": {
+          "title": "Ukuran Sub-judul"
+        }
+      },
+      "spacing": {
+        "title": "Spasi",
+        "pagePadding": {
+          "title": "Padding Halaman"
+        },
+        "sectionSpacing": {
+          "title": "Spasi Antar Bagian"
+        },
+        "paragraphSpacing": {
+          "title": "Spasi Paragraf"
+        }
+      },
+      "mode": {
+        "title": "Mode",
+        "useIconMode": {
+          "title": "Mode Ikon"
+        },
+        "centerSubtitle": {
+          "title": "Tengahkan Sub-judul"
+        },
+        "flexibleHeaderLayout": {
+          "title": "Judul Panjang"
+        }
+      }
+    },
+    "basicPanel": {
+      "title": "Profil",
+      "avatar": "Foto Profil",
+      "basicField": "Dasar",
+      "customField": "Kustom",
+      "layout": "Perataan",
+      "customFields": {
+        "placeholders": {
+          "label": "Label",
+          "value": "Nilai"
+        },
+        "displayLabel": "Tampilkan label",
+        "addButton": "Tambah Field Kustom"
+      },
+      "basicFields": {
+        "name": "Nama",
+        "title": "Posisi",
+        "email": "Email",
+        "phone": "Telepon",
+        "website": "Website",
+        "location": "Lokasi",
+        "birthDate": "Tanggal Lahir",
+        "employementStatus": "Status"
+      },
+      "fieldVisibility": {
+        "show": "Tampilkan",
+        "hide": "Sembunyikan"
+      },
+      "githubContributions": "Kontribusi GitHub"
+    },
+    "experiencePanel": {
+      "title": "Pengalaman Kerja",
+      "addButton": "Tambah Pengalaman Kerja",
+      "defaultProject": {
+        "company": "PT Teknologi Nusantara",
+        "position": "Senior Frontend Engineer",
+        "date": "2020-Sekarang",
+        "details": "Bertanggung jawab untuk pengembangan produk inti..."
+      },
+      "placeholders": {
+        "company": "nama perusahaan",
+        "position": "jabatan",
+        "date": "periode kerja",
+        "details": "tanggung jawab dan pencapaian"
+      }
+    },
+    "experienceItem": {
+      "labels": {
+        "company": "Nama Perusahaan",
+        "position": "Posisi",
+        "date": "Periode Kerja",
+        "details": "Tanggung Jawab"
+      },
+      "placeholders": {
+        "company": "Masukkan nama perusahaan",
+        "position": "mis. Frontend Engineer",
+        "date": "mis. 2020-Sekarang",
+        "details": "Jelaskan tanggung jawab dan pencapaian Anda di posisi ini"
+      },
+      "buttons": {
+        "edit": "Edit",
+        "save": "Simpan",
+        "cancel": "Batal",
+        "delete": "Hapus"
+      },
+      "visibility": {
+        "show": "Tampilkan",
+        "hide": "Sembunyikan"
+      }
+    },
+    "projectPanel": {
+      "title": "Pengalaman Proyek",
+      "addButton": "Tambah Proyek",
+      "defaultProject": {
+        "name": "Proyek Pribadi",
+        "description": "Deskripsi Proyek",
+        "role": "Tanggung Jawab",
+        "date": "2023.01 - 2023.06"
+      },
+      "placeholders": {
+        "name": "Nama Proyek",
+        "description": "Jelaskan singkat latar belakang dan tujuan proyek",
+        "role": "Peran dan tanggung jawab Anda dalam proyek",
+        "date": "Rentang waktu proyek",
+        "link": "Tautan proyek"
+      }
+    },
+    "projectItem": {
+      "labels": {
+        "name": "Nama Proyek",
+        "role": "Peran Proyek",
+        "date": "Periode Proyek",
+        "description": "Deskripsi Proyek",
+        "technologies": "Tech Stack",
+        "link": "Tautan Proyek",
+        "linkLabel": "Teks Tampilan"
+      },
+      "placeholders": {
+        "name": "Masukkan nama proyek",
+        "role": "Peran Anda dalam proyek",
+        "date": "Rentang waktu proyek",
+        "description": "Jelaskan singkat latar belakang dan tujuan proyek",
+        "technologies": "Teknologi dan tools yang digunakan",
+        "link": "Tautan proyek",
+        "linkLabel": "Teks tampilan"
+      },
+      "hints": {
+        "linkLabel": "Jika teks tampilan kosong, domain atau URL lengkap akan ditampilkan otomatis. Hanya mendukung tautan http:// dan https://."
+      },
+      "buttons": {
+        "edit": "Edit",
+        "save": "Simpan",
+        "cancel": "Batal",
+        "delete": "Hapus"
+      },
+      "visibility": {
+        "show": "Tampilkan",
+        "hide": "Sembunyikan"
+      }
+    },
+    "educationPanel": {
+      "title": "Pendidikan",
+      "addButton": "Tambah Pendidikan",
+      "defaultProject": {
+        "school": "Nama Sekolah/Universitas",
+        "degree": "Gelar",
+        "major": "Jurusan",
+        "date": "2020.09 - 2024.06"
+      },
+      "placeholders": {
+        "school": "Masukkan nama sekolah/universitas",
+        "degree": "Pilih gelar",
+        "major": "Masukkan jurusan",
+        "date": "Masukkan periode studi"
+      }
+    },
+    "educationItem": {
+      "labels": {
+        "school": "Nama Sekolah",
+        "degree": "Gelar",
+        "major": "Jurusan",
+        "date": "Periode Studi",
+        "description": "Deskripsi",
+        "gpa": "IPK",
+        "location": "Lokasi",
+        "startDate": "Tanggal Mulai",
+        "endDate": "Tanggal Selesai"
+      },
+      "placeholders": {
+        "school": "Masukkan nama sekolah",
+        "degree": "Pilih gelar",
+        "major": "Masukkan jurusan",
+        "date": "Masukkan rentang waktu studi",
+        "description": "Masukkan deskripsi sekolah",
+        "gpa": "Masukkan IPK",
+        "location": "Masukkan lokasi"
+      },
+      "buttons": {
+        "edit": "Edit",
+        "save": "Simpan",
+        "cancel": "Batal",
+        "delete": "Hapus"
+      },
+      "visibility": {
+        "show": "Tampilkan",
+        "hide": "Sembunyikan"
+      }
+    },
+    "certificatesPanel": {
+      "title": "Sertifikat",
+      "addButton": "Tambah Sertifikat",
+      "tips": "Unggah atau tempel (Cmd/Ctrl + V) gambar langsung. Sesuaikan rasio lebar untuk tata letak horizontal.",
+      "width": "Lebar (%)",
+      "delete": "Hapus",
+      "empty": "Belum ada gambar. Silakan unggah atau tempel gambar."
+    }
+  },
+  "field": {
+    "selectDate": "Pilih Tanggal",
+    "enterYear": "Masukkan Tahun",
+    "toPresent": "Sampai Sekarang"
+  },
+  "richEditor": {
+    "bold": "Tebal",
+    "italic": "Miring",
+    "underline": "Garis Bawah",
+    "link": "Tautan",
+    "linkPlaceholder": "Masukkan URL, contoh https://example.com",
+    "linkApply": "Terapkan",
+    "linkRemove": "Hapus",
+    "linkInvalid": "Masukkan URL yang valid",
+    "textColor": "Warna Teks",
+    "backgroundColor": "Warna Latar",
+    "alignLeft": "Rata Kiri",
+    "alignCenter": "Rata Tengah",
+    "alignRight": "Rata Kanan",
+    "alignJustify": "Rata Kanan-Kiri",
+    "bulletList": "Daftar Bullet",
+    "orderedList": "Daftar Bernomor",
+    "undo": "Urungkan",
+    "redo": "Ulangi",
+    "aiPolish": "Penyempurnaan AI",
+    "paragraph": "Paragraf",
+    "heading1": "Heading 1",
+    "heading2": "Heading 2",
+    "heading3": "Heading 3",
+    "colors": {
+      "black": "Hitam",
+      "darkGray": "Abu-abu Tua",
+      "gray": "Abu-abu",
+      "red": "Merah",
+      "orange": "Oranye",
+      "orangeYellow": "Kuning Oranye",
+      "yellow": "Kuning",
+      "yellowGreen": "Hijau Kuning",
+      "green": "Hijau",
+      "cyan": "Cyan",
+      "lightBlue": "Biru Muda",
+      "blue": "Biru",
+      "purple": "Ungu",
+      "magenta": "Magenta",
+      "pink": "Merah Muda"
+    }
+  },
+  "iconSelector": {
+    "all": "Semua",
+    "searchPlaceholder": "Cari ikon...",
+    "noMatchingIcons": "Tidak ada ikon yang cocok",
+    "tryOtherKeywords": "Coba kata kunci lain",
+    "selectOtherCategory": "Pilih kategori lain",
+    "categories": {
+      "personal": "Info Pribadi",
+      "education": "Pendidikan",
+      "experience": "Pengalaman Kerja",
+      "skills": "Keahlian",
+      "languages": "Bahasa",
+      "projects": "Proyek",
+      "achievements": "Pencapaian",
+      "hobbies": "Hobi",
+      "social": "Media Sosial",
+      "others": "Lainnya"
+    },
+    "icons": {
+      "user": "Pengguna",
+      "email": "Email",
+      "phone": "Telepon",
+      "address": "Alamat",
+      "website": "Website",
+      "mobile": "Ponsel",
+      "education": "Pendidikan",
+      "school": "Sekolah",
+      "major": "Jurusan",
+      "library": "Perpustakaan",
+      "scholarship": "Beasiswa",
+      "work": "Pekerjaan",
+      "company": "Perusahaan",
+      "office": "Kantor",
+      "dateRange": "Rentang Tanggal",
+      "workTime": "Jam Kerja",
+      "programming": "Pemrograman",
+      "system": "Sistem",
+      "database": "Database",
+      "terminal": "Terminal",
+      "techStack": "Tech Stack",
+      "language": "Bahasa",
+      "speaking": "Berbicara",
+      "communication": "Komunikasi",
+      "project": "Proyek",
+      "branch": "Branch",
+      "release": "Rilis",
+      "target": "Target",
+      "trophy": "Trofi",
+      "medal": "Medali",
+      "star": "Bintang",
+      "interest": "Minat",
+      "music": "Musik",
+      "art": "Seni",
+      "photography": "Fotografi",
+      "linkedin": "LinkedIn",
+      "twitter": "Twitter",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "profile": "Profil",
+      "review": "Ulasan",
+      "filter": "Filter",
+      "link": "Tautan",
+      "salary": "Gaji",
+      "idea": "Ide",
+      "send": "Kirim",
+      "share": "Bagikan",
+      "settings": "Pengaturan",
+      "search": "Cari",
+      "flag": "Bendera",
+      "bookmark": "Bookmark",
+      "thumbsUp": "Jempol",
+      "skill": "Keahlian"
+    }
+  },
+  "aiPolishDialog": {
+    "title": "Penyempurnaan AI",
+    "description": {
+      "ready": "Tambahkan instruksi opsional, lalu klik \"Mulai sempurnakan\"",
+      "polishing": "Sedang menyempurnakan konten Anda...",
+      "finished": "Konten telah dioptimalkan, silakan periksa hasilnya"
+    },
+    "error": {
+      "configRequired": "Silakan konfigurasi provider AI terlebih dahulu",
+      "polishFailed": "Penyempurnaan gagal",
+      "applied": "Konten penyempurnaan diterapkan"
+    },
+    "content": {
+      "original": "Konten Asli",
+      "polished": "Konten yang Disempurnakan"
+    },
+    "customInstructions": "Instruksi kustom",
+    "customInstructionsPlaceholder": "mis. Gunakan istilah teknis lebih banyak, tonjolkan metrik, jaga nada formal... (opsional)",
+    "button": {
+      "start": "Mulai sempurnakan",
+      "regenerate": "Buat ulang",
+      "generating": "Sedang membuat...",
+      "apply": "Terapkan Konten"
+    }
+  },
+  "photoConfig": {
+    "title": "Pengaturan Foto",
+    "description": "Sesuaikan foto CV Anda",
+    "upload": {
+      "title": "Tautan Online",
+      "dragHint": "Seret & lepas atau klik untuk unggah gambar",
+      "sizeLimit": "Ukuran gambar tidak boleh melebihi 2MB",
+      "typeLimit": "Silakan unggah file gambar",
+      "urlPlaceholder": "Masukkan tautan gambar",
+      "invalidUrl": "URL gambar tidak valid atau tidak dapat diakses, coba tautan lain",
+      "timeout": "Waktu loading habis",
+      "loadError": "Gagal memuat gambar"
+    },
+    "config": {
+      "aspectRatio": "Rasio Aspek",
+      "size": "Ukuran",
+      "width": "Lebar",
+      "height": "Tinggi",
+      "border-radius": "Radius Border",
+      "widthPlaceholder": "Lebar",
+      "heightPlaceholder": "Tinggi",
+      "ratios": {
+        "1:1": "1:1 Persegi",
+        "4:3": "4:3 Landscape",
+        "3:4": "3:4 Portrait",
+        "16:9": "16:9 Lebar",
+        "custom": "Kustom"
+      },
+      "borderRadius": {
+        "none": "Tidak Ada",
+        "medium": "Sedang",
+        "full": "Lingkaran",
+        "custom": "Kustom",
+        "customPlaceholder": "Radius border kustom"
+      }
+    },
+    "actions": {
+      "reset": "Reset",
+      "close": "Tutup",
+      "cancel": "Batal",
+      "removePhoto": "Hapus Foto"
+    }
+  },
+  "templates": {
+    "switchTemplate": "Ganti Template"
+  },
+  "themeModal": {
+    "delete": {
+      "title": "Konfirmasi Penghapusan",
+      "description": "Apakah Anda yakin ingin menghapus {title}?",
+      "confirmText": "Hapus",
+      "cancelText": "Batal"
+    }
+  },
+  "grammarCheck": {
+    "title": "Pemeriksa Tata Bahasa AI",
+    "description": "Ditemukan {count} saran",
+    "exit": "Keluar",
+    "spelling": "Ejaan",
+    "punctuation": "Tanda Baca",
+    "original": "Asli",
+    "error_point": "Kesalahan",
+    "suggestion": "Saran",
+    "reason": "Alasan",
+    "accept": "Terapkan",
+    "ignore": "Abaikan",
+    "found_issues": "Ditemukan {count} masalah",
+    "applied_success": "Perubahan diterapkan",
+    "apply_error": "Teks tidak ditemukan, tidak dapat diterapkan otomatis",
+    "no_errors_title": "Sempurna!",
+    "no_errors_desc": "Tidak ditemukan kesalahan tata bahasa atau tanda baca."
+  },
+  "faqDialog": {
+    "title": "Pertanyaan Umum (FAQ)",
+    "description": "Tips dan solusi umum untuk workbench CV-Buff.",
+    "items": {
+      "browser-compatibility": {
+        "question": "Browser apa yang direkomendasikan?",
+        "answer": "Kami merekomendasikan menggunakan versi terbaru Chrome atau Edge untuk pengalaman tata letak dan ekspor terbaik. Browser lama dapat menyebabkan masalah styling."
+      },
+      "export-failure": {
+        "question": "Bagaimana jika ekspor gagal atau styling rusak?",
+        "answer": "1. Kami merekomendasikan Google Chrome untuk kompatibilitas terbaik.\n2. Jika tetap gagal, coba di 'Mode Incognito' untuk mengisolasi gangguan extension.\n3. Atau, klik 'PDF (Cadangan)' di menu ekspor dan pilih 'Save as PDF' di dialog cetak."
+      },
+      "export-methods": {
+        "question": "Apa beda kedua metode ekspor?",
+        "answer": "• Ekspor PDF: Menggunakan layanan backend untuk render presisi tinggi, mengembalikan tata letak 100%. Direkomendasikan untuk pengiriman resmi ke HR.\n\n• Cetak Browser: Memanggil fungsi cetak browser Anda (Save as PDF). Cocok ketika layanan ekspor backend sibuk atau Anda perlu menyesuaikan margin via browser."
+      },
+      "drag-and-drop": {
+        "question": "Bagaimana cara drag and drop untuk mengurutkan modul?",
+        "answer": "Di pengaturan 'Tata Letak' panel edit kiri, arahkan kursor ke 'Drag Handle' (biasanya berupa ikon enam titik) di sisi kiri kartu modul. Klik dan tahan tombol kiri mouse untuk menyeret modul ke atas atau bawah, mengubah urutan bagian CV Anda."
+      }
+    }
+  }
+}
