@@ -243,7 +243,7 @@ export const ResumeWorkbench = () => {
     };
 
     return (
-        <ScrollArea className="h-[calc(100vh-2rem)] w-full">
+        <ScrollArea className="h-[calc(100vh-4rem)] w-full">
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -263,7 +263,7 @@ export const ResumeWorkbench = () => {
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.3 }}
                 >
-                    <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+                    <h1 className="text-3xl font-bold tracking-tight text-foreground">
                         {t("dashboard.resumes.myResume")}
                     </h1>
                     <div className="flex items-center space-x-2">
