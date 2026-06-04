@@ -51,6 +51,7 @@ export const ResumeWorkbench = () => {
     const [isImporting, setIsImporting] = useState(false);
     const jsonFileInputRef = useRef<HTMLInputElement>(null);
     const pdfFileInputRef = useRef<HTMLInputElement>(null);
+    const hasResumes = Object.keys(resumes).length > 0;
 
     const handleCreateFromModal = (templateId: string | null) => {
         const isBlank = !templateId;
@@ -267,20 +268,22 @@ export const ResumeWorkbench = () => {
                     </h1>
                     <div className="flex items-center space-x-2">
                         <AnimatedImportButton onClick={() => setIsImportDialogOpen(true)} t={t} />
-                        <motion.div
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                        >
-                            <Button
-                                onClick={() => setIsCreateModalOpen(true)}
-                                variant="default"
-                                className="bg-gray-900 text-white hover:bg-gray-800 dark:bg-primary dark:text-primary-foreground dark:hover:bg-primary/90"
+                        {hasResumes && (
+                            <motion.div
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                transition={{ type: "spring", stiffness: 400, damping: 17 }}
                             >
-                                <Plus className="mr-2 h-4 w-4" />
-                                {t("dashboard.resumes.create")}
-                            </Button>
-                        </motion.div>
+                                <Button
+                                    onClick={() => setIsCreateModalOpen(true)}
+                                    variant="default"
+                                    className="bg-gray-900 text-white hover:bg-gray-800 dark:bg-primary dark:text-primary-foreground dark:hover:bg-primary/90"
+                                >
+                                    <Plus className="mr-2 h-4 w-4" />
+                                    {t("dashboard.resumes.create")}
+                                </Button>
+                            </motion.div>
+                        )}
                     </div>
                 </motion.div>
 
@@ -292,31 +295,34 @@ export const ResumeWorkbench = () => {
                 >
                     <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-6">
                         <motion.div
-                            whileHover={{ scale: 1.02 }}
+                            whileHover={{ y: -4 }}
                             whileTap={{ scale: 0.98 }}
                             transition={{ type: "spring", stiffness: 400, damping: 17 }}
                             onClick={() => setIsCreateModalOpen(true)}
                         >
                             <Card
                                 className={cn(
-                                    "relative border border-dashed cursor-pointer transition-all duration-200 aspect-[210/297] flex flex-col",
-                                    "hover:border-gray-400 hover:bg-gray-50",
-                                    "dark:hover:border-primary dark:hover:bg-primary/10"
+                                    "group relative flex aspect-[210/297] cursor-pointer flex-col overflow-hidden border-border/60 bg-card transition-all duration-300",
+                                    "hover:border-primary/40 hover:bg-primary/[0.02] hover:shadow-xl hover:shadow-primary/5"
                                 )}
                             >
-                                <CardContent className="flex-1 p-0 text-center flex flex-col items-center justify-center">
+                                <CardContent className="flex flex-1 flex-col items-center justify-center p-6 text-center">
                                     <motion.div
-                                        className="mb-4 p-4 rounded-full bg-gray-100 dark:bg-primary/10"
+                                        className="mb-4 rounded-full bg-primary/10 p-4 transition-colors group-hover:bg-primary/15"
                                         whileHover={{ rotate: 90 }}
                                         transition={{ duration: 0.2 }}
                                     >
-                                        <Plus className="h-8 w-8 text-gray-600 dark:text-primary" />
+                                        <Plus className="h-8 w-8 text-primary" />
                                     </motion.div>
-                                    <CardTitle className="text-xl text-gray-900 dark:text-gray-100 px-4">
-                                        {t("dashboard.resumes.newResume")}
+                                    <CardTitle className="px-2 text-xl text-foreground">
+                                        {hasResumes
+                                            ? t("dashboard.resumes.newResume")
+                                            : t("dashboard.resumes.firstResume")}
                                     </CardTitle>
-                                    <CardDescription className="mt-2 text-gray-600 dark:text-gray-400 px-4">
-                                        {t("dashboard.resumes.newResumeDescription")}
+                                    <CardDescription className="mt-2 px-2 leading-relaxed text-muted-foreground">
+                                        {hasResumes
+                                            ? t("dashboard.resumes.newResumeDescription")
+                                            : t("dashboard.resumes.firstResumeDescription")}
                                     </CardDescription>
                                 </CardContent>
                             </Card>

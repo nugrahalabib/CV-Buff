@@ -25,9 +25,9 @@ export const AnimatedImportButton = ({ onClick, t }: AnimatedImportButtonProps) 
                 onClick={onClick}
                 variant="outline"
                 className={cn(
-                    "relative h-10 overflow-hidden px-4 font-medium transition-all duration-300",
-                    "border-border/60 bg-background hover:border-primary/50 hover:bg-accent/50 hover:shadow-sm",
-                    "dark:border-border/40 dark:hover:border-primary/40"
+                    "relative h-10 overflow-hidden px-4 font-semibold transition-all duration-300",
+                    "border-primary/30 bg-background text-foreground hover:border-primary/60 hover:bg-primary/5 hover:shadow-sm",
+                    "dark:border-primary/30 dark:hover:border-primary/60"
                 )}
             >
                 <div className="flex items-center gap-2">
