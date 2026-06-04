@@ -75,7 +75,7 @@ function LoginPage() {
             </div>
           </div>
 
-          <img src="/logo.svg" alt="CV-Buff" className="mx-auto mb-5 block h-11" />
+          <img src="/icon.png" alt="CV-Buff" className="mx-auto mb-5 block h-12 w-12 rounded-xl" />
 
           <h1 className="mb-2.5 font-serif text-2xl font-semibold leading-tight tracking-tight text-foreground">
             Satu Langkah Lagi Menuju CV Profesionalmu
