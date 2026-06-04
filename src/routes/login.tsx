@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { Zap } from "lucide-react";
 import { signIn } from "@/lib/auth-client";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Masuk — CV-Buff" },
+      { title: "Daftar Gratis — CV-Buff" },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),
@@ -32,30 +33,81 @@ function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#f8f9fb] to-white dark:from-gray-900 dark:to-gray-800 px-4">
-      <div className="w-full max-w-sm rounded-2xl border border-border bg-card p-8 shadow-sm text-center">
-        <img src="/logo.svg" alt="CV-Buff" className="h-10 mx-auto mb-6" />
-        <h1 className="text-xl font-semibold mb-1">Masuk ke CV-Buff</h1>
-        <p className="text-sm text-muted-foreground mb-6">
-          Daftar gratis untuk mulai membuat CV profesional. CV-mu tersimpan aman
-          di akunmu dan terisolasi penuh dari pengguna lain.
-        </p>
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4">
+      {/* Grid presisi — selaras DNA hero, momentum merek terjaga */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.35] dark:opacity-[0.25]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(128,128,128,0.12) 1px, transparent 1px), linear-gradient(to bottom, rgba(128,128,128,0.12) 1px, transparent 1px)",
+          backgroundSize: "44px 44px",
+          maskImage:
+            "radial-gradient(ellipse 60% 55% at 50% 45%, black 25%, transparent 100%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 60% 55% at 50% 45%, black 25%, transparent 100%)",
+        }}
+      />
+      {/* Ambient glow */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-1/2 top-1/2 h-[420px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-[130px]" />
+        <div className="absolute left-1/4 top-1/3 h-64 w-64 rounded-full bg-blue-500/10 blur-[120px]" />
+        <div className="absolute bottom-1/4 right-1/4 h-64 w-64 rounded-full bg-purple-500/10 blur-[120px]" />
+      </div>
 
-        <button
-          onClick={handleGoogle}
-          disabled={loading}
-          className="w-full inline-flex items-center justify-center gap-3 rounded-lg border border-border bg-background px-4 py-2.5 text-sm font-medium hover:bg-accent transition-colors disabled:opacity-60"
-        >
-          <GoogleIcon />
-          {loading ? "Mengalihkan…" : "Lanjutkan dengan Google"}
-        </button>
+      {/* Kartu otentikasi */}
+      <div className="relative w-full max-w-sm">
+        {/* Diffused glow di belakang kartu — bikin "pop" berbobot */}
+        <div className="pointer-events-none absolute -inset-3 -z-10 rounded-[2rem] bg-gradient-to-tr from-primary/15 via-blue-500/10 to-purple-500/10 blur-2xl" />
 
-        {error && <p className="text-sm text-red-500 mt-3">{error}</p>}
+        <div className="rounded-2xl border border-black/5 bg-white/90 p-8 text-center shadow-2xl shadow-black/10 ring-1 ring-black/[0.03] backdrop-blur-xl dark:border-white/10 dark:bg-neutral-900/90">
+          {/* Badge "Gratis" — selalu terlihat, meredam skeptis (resep pil hero) */}
+          <div className="mb-6 flex justify-center">
+            <div className="inline-flex rounded-full bg-gradient-to-r from-primary/50 via-blue-500/40 to-primary/50 p-[1px]">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-background/90 px-3 py-1 backdrop-blur-md">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                </span>
+                <span className="text-[11px] font-semibold tracking-wide text-foreground/80">
+                  100% Gratis Selamanya
+                </span>
+              </div>
+            </div>
+          </div>
 
-        <p className="text-xs text-muted-foreground mt-6 leading-relaxed">
-          Dengan masuk, kamu menyetujui penggunaan data profil Google (nama,
-          email, foto) untuk pendaftaran akun.
-        </p>
+          <img src="/logo.svg" alt="CV-Buff" className="mx-auto mb-5 block h-11" />
+
+          <h1 className="mb-2.5 font-serif text-2xl font-semibold leading-tight tracking-tight text-foreground">
+            Satu Langkah Lagi Menuju CV Profesionalmu
+          </h1>
+          <p className="mb-7 text-sm leading-relaxed text-muted-foreground">
+            Buat akun gratis dalam 2 detik. Simpan progres Anda secara otomatis,
+            ekspor tanpa batas, dan privasi data 100% hanya di tangan Anda.
+          </p>
+
+          {/* Microcopy penetral ketakutan password */}
+          <div className="mb-2.5 inline-flex items-center gap-1.5 text-xs font-semibold text-foreground/70">
+            <Zap className="h-3.5 w-3.5 text-blue-500" />
+            Akses Instan. Tanpa Password.
+          </div>
+
+          <button
+            onClick={handleGoogle}
+            disabled={loading}
+            className="flex w-full items-center justify-center gap-3 rounded-xl border border-border bg-background px-4 py-3 text-sm font-semibold shadow-sm transition-all hover:bg-accent hover:shadow-md active:scale-[0.99] disabled:opacity-60"
+          >
+            <GoogleIcon />
+            {loading ? "Mengalihkan…" : "Lanjutkan dengan Google"}
+          </button>
+
+          {error && <p className="mt-3 text-sm text-red-500">{error}</p>}
+
+          <p className="mt-6 text-xs leading-relaxed text-muted-foreground/80">
+            Tanpa kartu kredit · Ekspor kapan saja. Dengan masuk, kamu menyetujui
+            penggunaan data profil Google (nama, email, foto) untuk pendaftaran
+            akun.
+          </p>
+        </div>
       </div>
     </main>
   );
