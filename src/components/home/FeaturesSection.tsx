@@ -1,47 +1,32 @@
-
 import { useTranslations } from "@/i18n/compat/client";
-import Image from "@/lib/image";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { ChevronRight, Sparkles, Shield } from "lucide-react";
+import { ChevronRight, Zap, ShieldCheck } from "lucide-react";
+import { cn } from "@/lib/utils";
 import AnimatedFeature from "./client/AnimatedFeature";
+import FeatureAiMockup from "./client/FeatureAiMockup";
+import FeatureStorageMockup from "./client/FeatureStorageMockup";
 
 const features = [
   {
-    icon: Sparkles,
+    icon: Zap,
     badge: "features.ai.badge",
-    badgeColor: "bg-primary/10 text-primary",
+    badgeColor: "bg-primary/10 text-primary ring-1 ring-primary/15",
     title: "features.ai.title",
     description: "features.ai.description",
     items: [
-      {
-        title: "features.ai.item1",
-        description: "features.ai.item1_description",
-        image: "/features/svg/polish.svg",
-      },
-      {
-        title: "features.ai.item2",
-        description: "features.ai.item2_description",
-        image: "/features/svg/grammar.svg",
-      },
+      { title: "features.ai.item1", description: "features.ai.item1_description" },
+      { title: "features.ai.item2", description: "features.ai.item2_description" },
     ],
   },
   {
-    icon: Shield,
+    icon: ShieldCheck,
     badge: "features.storage.badge",
-    badgeColor: "bg-emerald-500/10 text-emerald-600",
+    badgeColor: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 ring-1 ring-emerald-500/15",
     title: "features.storage.title",
     description: "features.storage.description",
     items: [
-      {
-        title: "features.storage.item1",
-        description: "features.storage.item1_description",
-        image: "/features/svg/local-storage.svg",
-      },
-      {
-        title: "features.storage.item2",
-        description: "features.storage.item2_description",
-        image: "/features/svg/export-formats.svg",
-      },
+      { title: "features.storage.item1", description: "features.storage.item1_description" },
+      { title: "features.storage.item2", description: "features.storage.item2_description" },
     ],
   },
 ] as const;
@@ -58,41 +43,31 @@ export default function FeaturesSection() {
     features.map(() => null)
   );
 
-  const startProgressTimer = useCallback(
-    (categoryIndex: number) => {
-      if (intervalRefs.current[categoryIndex]) {
-        clearInterval(intervalRefs.current[categoryIndex] as NodeJS.Timeout);
-      }
+  const startProgressTimer = useCallback((categoryIndex: number) => {
+    if (intervalRefs.current[categoryIndex]) {
+      clearInterval(intervalRefs.current[categoryIndex] as NodeJS.Timeout);
+    }
+    const updateInterval = 50;
+    const progressIncrement = (updateInterval / SLIDE_DURATION) * 100;
 
-      const updateInterval = 50;
-      const progressIncrement = (updateInterval / SLIDE_DURATION) * 100;
+    intervalRefs.current[categoryIndex] = setInterval(() => {
+      setProgresses((prev) => {
+        const next = [...prev];
+        if (next[categoryIndex] < 100) next[categoryIndex] += progressIncrement;
+        return next;
+      });
+    }, updateInterval);
+  }, []);
 
-      intervalRefs.current[categoryIndex] = setInterval(() => {
-        setProgresses((prev) => {
-          const newProgresses = [...prev];
-          // Allow progress to go slightly over 100, handled by effect
-          if (newProgresses[categoryIndex] < 100) {
-            newProgresses[categoryIndex] += progressIncrement;
-          }
-          return newProgresses;
-        });
-      }, updateInterval);
-    },
-    []
-  );
-
-  // Handle auto-switch when progress reaches 100%
+  // Auto-switch saat progress mencapai 100%
   useEffect(() => {
     progresses.forEach((progress, index) => {
       if (progress >= 100) {
-        // Reset progress immediately to prevent repeated triggers
         setProgresses((prev) => {
           const next = [...prev];
           next[index] = 0;
           return next;
         });
-        
-        // Switch to next feature
         setActiveFeatures((prevActive) => {
           const next = [...prevActive];
           const max = features[index].items.length - 1;
@@ -127,99 +102,118 @@ export default function FeaturesSection() {
   };
 
   return (
-    <section className="py-24 md:py-40 bg-background overflow-hidden">
-      <div className="container mx-auto px-6 max-w-6xl">
+    <section className="relative overflow-hidden bg-background py-24 md:py-40">
+      {/* Ambient glow halus — selaras DNA hero */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute left-1/2 top-24 h-72 w-[40rem] -translate-x-1/2 rounded-full bg-primary/[0.07] blur-[130px]" />
+      </div>
+
+      <div className="container mx-auto max-w-6xl px-6">
         <AnimatedFeature>
-          <div className="text-center mb-24 md:mb-32">
-            <h2 className="text-4xl md:text-5xl font-serif font-semibold tracking-tight text-foreground/90 mb-6">
+          <div className="mx-auto mb-20 max-w-3xl text-center md:mb-28">
+            <h2 className="font-serif text-4xl font-semibold leading-[1.1] tracking-tight text-foreground md:text-5xl">
               {t("features.title")}
             </h2>
-            <div className="w-20 h-1 bg-primary/20 mx-auto rounded-full mb-8" />
-            <p className="text-xl text-muted-foreground/80 max-w-2xl mx-auto font-light leading-relaxed">
+            <p className="mx-auto mt-6 max-w-2xl text-lg font-light leading-relaxed text-muted-foreground/80 md:text-xl">
               {t("features.subtitle")}
             </p>
           </div>
         </AnimatedFeature>
 
-        <div className="space-y-40">
+        <div className="space-y-32 md:space-y-40">
           {features.map((category, catIndex) => (
-            <div 
-              key={catIndex} 
-              className={`flex flex-col gap-16 lg:gap-24 items-center ${
+            <div
+              key={catIndex}
+              className={cn(
+                "flex flex-col items-center gap-12 lg:gap-20",
                 catIndex % 2 === 1 ? "lg:flex-row-reverse" : "lg:flex-row"
-              }`}
+              )}
             >
               {/* Text Side */}
-              <div className="w-full lg:w-5/12 space-y-10">
+              <div className="w-full space-y-9 lg:w-5/12">
                 <AnimatedFeature delay={0.1}>
                   <div className="space-y-6">
-                    <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-lg text-sm font-medium ${category.badgeColor}`}>
-                      <category.icon className="w-4 h-4" />
+                    <div
+                      className={cn(
+                        "inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-sm font-semibold",
+                        category.badgeColor
+                      )}
+                    >
+                      <category.icon className="h-4 w-4" />
                       {t(category.badge)}
                     </div>
-                    <h3 className="text-3xl md:text-4xl font-serif font-medium tracking-tight text-foreground/90">
+                    <h3 className="font-serif text-3xl font-medium tracking-tight text-foreground md:text-4xl">
                       {t(category.title)}
                     </h3>
-                    <p className="text-lg text-muted-foreground/90 leading-relaxed font-light">
+                    <p className="text-lg font-light leading-relaxed text-muted-foreground/90">
                       {t(category.description)}
                     </p>
                   </div>
                 </AnimatedFeature>
 
-                <div className="space-y-4">
-                  {category.items.map((item, itemIndex) => (
-                    <button
-                      key={itemIndex}
-                      onClick={() => handleSlideChange(catIndex, itemIndex)}
-                      className={`w-full text-left group p-5 rounded-2xl transition-all relative border overflow-hidden ${
-                        activeFeatures[catIndex] === itemIndex
-                          ? "bg-secondary border-border shadow-sm"
-                          : "bg-transparent border-transparent hover:bg-secondary/40"
-                      }`}
-                    >
-                      {/* Progress Bar */}
-                      {activeFeatures[catIndex] === itemIndex && (
-                        <div 
-                          className="absolute bottom-0 left-0 h-0.5 bg-primary/30 transition-all duration-75 ease-linear"
-                          style={{ width: `${progresses[catIndex]}%` }}
-                        />
-                      )}
-                      
-                      <div className="flex items-start justify-between">
-                        <div className="space-y-1">
-                          <h4 className={`font-semibold transition-colors ${
-                            activeFeatures[catIndex] === itemIndex ? "text-primary" : "text-foreground/70"
-                          }`}>
-                            {t(item.title)}
-                          </h4>
-                          <p className="text-sm text-muted-foreground line-clamp-1">
-                            {t(item.description)}
-                          </p>
+                <div className="space-y-2.5">
+                  {category.items.map((item, itemIndex) => {
+                    const isActive = activeFeatures[catIndex] === itemIndex;
+                    return (
+                      <button
+                        key={itemIndex}
+                        onClick={() => handleSlideChange(catIndex, itemIndex)}
+                        className={cn(
+                          "group relative w-full overflow-hidden rounded-xl px-5 py-4 text-left transition-all duration-300",
+                          isActive
+                            ? "bg-primary/[0.06] dark:bg-primary/[0.1]"
+                            : "hover:bg-secondary/50 hover:shadow-[0_6px_28px_-14px] hover:shadow-primary/40"
+                        )}
+                      >
+                        {/* Indikator aktif: bar vertikal kiri + progress */}
+                        {isActive && (
+                          <span className="absolute left-0 top-0 h-full w-1 overflow-hidden rounded-r bg-primary/15">
+                            <span
+                              className="block w-full rounded-r bg-gradient-to-b from-primary to-blue-500 transition-[height] duration-75 ease-linear"
+                              style={{ height: `${progresses[catIndex]}%` }}
+                            />
+                          </span>
+                        )}
+
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="space-y-1">
+                            <h4
+                              className={cn(
+                                "font-semibold transition-colors",
+                                isActive
+                                  ? "text-foreground"
+                                  : "text-foreground/55 group-hover:text-foreground/80"
+                              )}
+                            >
+                              {t(item.title)}
+                            </h4>
+                            <p className="line-clamp-1 text-sm text-muted-foreground/80">
+                              {t(item.description)}
+                            </p>
+                          </div>
+                          <ChevronRight
+                            className={cn(
+                              "mt-0.5 h-5 w-5 shrink-0 transition-all",
+                              isActive
+                                ? "translate-x-0.5 text-primary"
+                                : "text-muted-foreground/30 group-hover:text-muted-foreground/60"
+                            )}
+                          />
                         </div>
-                        <ChevronRight className={`w-5 h-5 transition-all ${
-                          activeFeatures[catIndex] === itemIndex ? "text-primary translate-x-1" : "text-muted-foreground/30"
-                        }`} />
-                      </div>
-                    </button>
-                  ))}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
-              {/* Image Side */}
+              {/* Mockup Side */}
               <div className="w-full lg:w-7/12">
-                <AnimatedFeature key={`${catIndex}-${activeFeatures[catIndex]}`} delay={0.2}>
-                  <div className="relative aspect-[16/10] bg-secondary/20 rounded-3xl border border-border/50 p-6 sm:p-10 shadow-2xl backdrop-blur-sm group overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent pointer-events-none" />
-                    <div className="relative w-full h-full transform group-hover:scale-[1.02] transition-transform duration-700">
-                      <Image
-                        src={category.items[activeFeatures[catIndex]].image}
-                        alt={t(category.items[activeFeatures[catIndex]].title)}
-                        fill
-                        className="object-contain"
-                        sizes="(max-width: 1024px) 100vw, 40vw"
-                      />
-                    </div>
-                  </div>
+                <AnimatedFeature delay={0.2}>
+                  {catIndex === 0 ? (
+                    <FeatureAiMockup active={activeFeatures[catIndex]} />
+                  ) : (
+                    <FeatureStorageMockup active={activeFeatures[catIndex]} />
+                  )}
                 </AnimatedFeature>
               </div>
             </div>

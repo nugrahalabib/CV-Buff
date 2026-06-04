@@ -39,16 +39,16 @@
       "trust3": "Encrypted Data"
     },
     "features": {
-      "title": "Why Choose CV-Buff?",
-      "subtitle": "We provide an all-in-one resume solution to make your job search journey smoother",
+      "title": "More Than a Template. It's Your Career Optimization Engine.",
+      "subtitle": "Our AI analyzes, rewrites, and calibrates every word in your resume so it can't be ignored — by ATS or by recruiters.",
       "ai": {
-        "badge": "AI Smart Check",
-        "title": "Smart Detection, Professional Advice",
-        "description": "Built-in smart grammar check, automatically identifies inappropriate expressions, provides professional modification suggestions, making your resume more outstanding.",
-        "item1": "Intelligent enhancement",
-        "item1_description": "AI automatically optimizes content expression, making your resume more professional",
-        "item2": "Grammar check",
-        "item2_description": "Automatically detects and corrects grammar and spelling errors"
+        "badge": "Your Personal AI Copywriter",
+        "title": "Turn Plain Descriptions Into Professional Metrics",
+        "description": "Every experience bullet is rewritten by AI into high-impact lines — rich with numbers, strong verbs, and ATS-recognized keywords.",
+        "item1": "Data-Driven Auto-Rewrite",
+        "item1_description": "AI transforms passive sentences into industry-standard achievement points.",
+        "item2": "Typo & Grammar Free",
+        "item2_description": "Pass ATS parser traps with flawless language structure."
       },
       "storage": {
         "badge": "Stored in Your Account",

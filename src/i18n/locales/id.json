@@ -39,16 +39,16 @@
       "trust3": "Data Terenkripsi"
     },
     "features": {
-      "title": "Mengapa memilih CV-Buff?",
-      "subtitle": "Kami menyediakan solusi CV all-in-one agar perjalanan mencari kerja Anda lebih mulus",
+      "title": "Bukan Sekadar Template. Ini Mesin Optimasi Karir Anda.",
+      "subtitle": "Sistem AI kami menganalisis, merombak, dan mengkalibrasi setiap kata di resume Anda agar tidak bisa diabaikan oleh sistem ATS maupun HRD.",
       "ai": {
-        "badge": "Pemeriksaan AI Cerdas",
-        "title": "Deteksi Cerdas, Saran Profesional",
-        "description": "Pemeriksa tata bahasa AI terintegrasi otomatis mengidentifikasi ungkapan yang kurang tepat dan memberikan saran perbaikan profesional, agar CV Anda lebih menonjol.",
-        "item1": "Penyempurnaan otomatis",
-        "item1_description": "AI mengoptimalkan ekspresi konten otomatis, membuat CV Anda lebih profesional",
-        "item2": "Pemeriksaan tata bahasa",
-        "item2_description": "Mendeteksi dan memperbaiki kesalahan tata bahasa serta ejaan secara otomatis"
+        "badge": "AI Copywriter Pribadi",
+        "title": "Ubah Deskripsi Biasa Menjadi Metrik Profesional",
+        "description": "Setiap poin pengalaman dirombak AI menjadi kalimat berdampak — kaya angka, kata kerja kuat, dan kata kunci yang dikenali ATS.",
+        "item1": "Auto-Rewrite Berbasis Data",
+        "item1_description": "AI merombak kalimat pasif menjadi poin pencapaian berstandar industri.",
+        "item2": "Bebas Typo & Grammar Error",
+        "item2_description": "Lolos dari jebakan parser ATS dengan struktur bahasa yang tanpa celah."
       },
       "storage": {
         "badge": "Tersimpan di Akun",
