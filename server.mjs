@@ -33,6 +33,39 @@ function getContentType(filePath) {
   return MIME_TYPES[extension] || "application/octet-stream";
 }
 
+const CONTENT_SECURITY_POLICY = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+  "object-src 'none'",
+  // TanStack Start injects inline hydration scripts; Tailwind/templates use inline styles.
+  "script-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com data:",
+  "img-src 'self' data: blob: https:",
+  "connect-src 'self'"
+].join("; ");
+
+// Company-grade response hardening applied to every response (static + dynamic).
+function setSecurityHeaders(req, res, protocol) {
+  res.setHeader("X-Frame-Options", "DENY");
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.setHeader(
+    "Permissions-Policy",
+    "camera=(), microphone=(), geolocation=(), browsing-topics=()"
+  );
+  res.setHeader("Content-Security-Policy", CONTENT_SECURITY_POLICY);
+  const forwardedProto = (req.headers["x-forwarded-proto"] || "").toString();
+  if (protocol === "https" || forwardedProto.includes("https")) {
+    res.setHeader(
+      "Strict-Transport-Security",
+      "max-age=63072000; includeSubDomains"
+    );
+  }
+}
+
 function toHeaders(nodeHeaders) {
   const headers = new Headers();
   for (const [key, value] of Object.entries(nodeHeaders)) {
@@ -97,6 +130,8 @@ createServer(async (req, res) => {
     const hostHeader = req.headers.host || `localhost:${port}`;
     const protocol = (req.headers["x-forwarded-proto"] || "http").toString().split(",")[0].trim();
     const url = new URL(req.url || "/", `${protocol}://${hostHeader}`);
+
+    setSecurityHeaders(req, res, protocol);
 
     if (tryServeStatic(req, res, url)) return;
 

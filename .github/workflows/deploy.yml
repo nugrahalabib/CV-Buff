@@ -1,13 +1,18 @@
-name: Deploy to Cloudflare
+# DISABLED — DO NOT RE-ENABLE without changing the DB access layer.
+# CV-Buff uses a `pg` (node-postgres) TCP connection pool for auth + per-user CV storage
+# (src/lib/server/db.ts). That does NOT work on the Cloudflare Workers edge runtime, so
+# deploying here would ship an app where login and CV save fail at runtime.
+# Canonical deploy is Node/Docker on a VPS (see docs/DEPLOYMENT.md + docs/AUTH.md).
+# Kept for reference only. To use Cloudflare later, route DB through Hyperdrive / an HTTP
+# Postgres driver first, then remove the `if: false` guard below.
+name: Deploy to Cloudflare (disabled — pg incompatible with Workers edge)
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
   deploy:
+    if: ${{ false }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { requireUser } from "@/lib/server/requireUser";
+import { resolveProviderEndpoint } from "@/lib/server/providerEndpoint";
 import type { ProviderProtocol } from "@/config/ai/types";
 import { formatGeminiErrorMessage, getGeminiModelInstance } from "@/lib/server/gemini";
 import {
@@ -268,16 +269,25 @@ export const Route = createFileRoute("/api/polish")({
             return Response.json({ error: { message: "Missing provider protocol" } }, { status: 400 });
           }
 
+          // Anti-SSRF: built-ins use server-known endpoints; custom endpoints are guarded.
+          let safeEndpoint: string;
+          try {
+            safeEndpoint = await resolveProviderEndpoint(provider.id, provider.endpoint);
+          } catch (r) {
+            return r as Response;
+          }
+          const safeProvider = { ...provider, endpoint: safeEndpoint };
+
           const systemPrompt = buildSystemPrompt(customInstructions);
 
           switch (provider.protocol) {
             case "anthropic":
-              return await handleAnthropic(provider, apiKey, model, systemPrompt, content);
+              return await handleAnthropic(safeProvider, apiKey, model, systemPrompt, content);
             case "gemini":
               return await handleGemini(apiKey, model, systemPrompt, content);
             case "openai-compatible":
             default:
-              return await handleOpenAICompatible(provider, apiKey, model, systemPrompt, content);
+              return await handleOpenAICompatible(safeProvider, apiKey, model, systemPrompt, content);
           }
         } catch (error) {
           console.error("Polish error:", error);

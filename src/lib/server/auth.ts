@@ -3,6 +3,7 @@ import { tanstackStartCookies } from "better-auth/tanstack-start";
 import { genericOAuth } from "better-auth/plugins";
 import { pool } from "./db";
 import { socialProviders } from "./authProviders";
+import { TRUSTED_ORIGINS } from "./origins";
 
 /**
  * Server-only auth instance (better-auth).
@@ -14,13 +15,24 @@ import { socialProviders } from "./authProviders";
  * SSO "colokan": OAuth providers live in ./authProviders; OIDC/OAuth2 providers
  * can be added to the genericOAuth({ config: [...] }) slot below — no schema change.
  */
+/**
+ * Session-signing secret. Falls back to an insecure constant ONLY in development; in
+ * production a missing BETTER_AUTH_SECRET fails fast (crash on boot) instead of silently
+ * signing every session cookie with a publicly-known value (which would allow forgery).
+ */
+const AUTH_SECRET =
+  process.env.BETTER_AUTH_SECRET ||
+  (process.env.NODE_ENV === "production"
+    ? (() => {
+        throw new Error("BETTER_AUTH_SECRET is required in production");
+      })()
+    : "dev-insecure-secret-change-in-production");
+
 export const auth = betterAuth({
   database: pool,
   baseURL: process.env.BETTER_AUTH_URL || "http://localhost:1713",
-  secret:
-    process.env.BETTER_AUTH_SECRET ||
-    "dev-insecure-secret-change-in-production",
-  trustedOrigins: ["http://localhost:1713", "https://cv.agentbuff.id"],
+  secret: AUTH_SECRET,
+  trustedOrigins: TRUSTED_ORIGINS,
 
   socialProviders,
 

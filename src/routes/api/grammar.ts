@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { requireUser } from "@/lib/server/requireUser";
+import { resolveProviderEndpoint } from "@/lib/server/providerEndpoint";
 import type { ProviderProtocol } from "@/config/ai/types";
 import { formatGeminiErrorMessage, getGeminiModelInstance } from "@/lib/server/gemini";
 import { callAnthropic, formatAnthropicErrorMessage } from "@/lib/server/anthropic";
@@ -130,6 +131,14 @@ export const Route = createFileRoute("/api/grammar")({
             return Response.json({ error: "Missing provider protocol" }, { status: 400 });
           }
 
+          // Anti-SSRF: built-ins use server-known endpoints; custom endpoints are guarded.
+          let safeEndpoint: string;
+          try {
+            safeEndpoint = await resolveProviderEndpoint(provider.id, provider.endpoint);
+          } catch (r) {
+            return r as Response;
+          }
+
           // Gemini path
           if (provider.protocol === "gemini") {
             const geminiModel = model || "gemini-flash-latest";
@@ -161,7 +170,7 @@ export const Route = createFileRoute("/api/grammar")({
               stream: false,
               temperature: 0,
               customHeaders: provider.customHeaders,
-              endpoint: provider.endpoint,
+              endpoint: safeEndpoint,
             });
             const raw = await upstream.text();
             if (!upstream.ok) {
@@ -188,10 +197,7 @@ export const Route = createFileRoute("/api/grammar")({
           }
 
           // OpenAI-compatible path
-          const baseEndpoint = (provider.endpoint || "").trim().replace(/\/+$/, "");
-          const url = baseEndpoint
-            ? `${baseEndpoint}/chat/completions`
-            : "https://api.openai.com/v1/chat/completions";
+          const url = `${safeEndpoint}/chat/completions`;
           const upstream = await fetch(url, {
             method: "POST",
             headers: buildAuthHeaders(provider, apiKey),

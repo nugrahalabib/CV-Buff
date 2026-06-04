@@ -6,9 +6,15 @@ import { Pool } from "pg";
  * scoped to `user_id`. CV content reaches a device only on download/export. The user's
  * AI API keys are NOT stored here (they stay in the browser).
  */
-const connectionString =
-  process.env.DATABASE_URL ||
-  "postgresql://cvbuff_user:cvbuff@localhost:5432/cvbuff";
+const connectionString = process.env.DATABASE_URL;
+if (!connectionString) {
+  // Fail fast — never bake a credential-bearing DSN fallback into the server bundle.
+  throw new Error(
+    process.env.NODE_ENV === "production"
+      ? "DATABASE_URL is required in production"
+      : "DATABASE_URL is required (set it in .env)"
+  );
+}
 
 export const pool = new Pool({ connectionString });
 

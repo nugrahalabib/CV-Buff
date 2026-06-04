@@ -1,84 +1,104 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { requireUser } from "@/lib/server/requireUser";
+import { assertPublicHttpUrl } from "@/lib/server/ssrfGuard";
 
+const MAX_BYTES = 5 * 1024 * 1024; // 5 MB
+const FETCH_TIMEOUT_MS = 5000;
+const MAX_REDIRECTS = 3;
+
+/**
+ * Same-origin image proxy for avatar/photo URLs. Authenticated + SSRF-guarded:
+ * the URL host must resolve to a public address (no loopback/private/link-local),
+ * each redirect hop is re-validated, the body is size-capped, and errors are generic
+ * (never echo upstream details — prevents blind-SSRF port probing).
+ */
 export const Route = createFileRoute("/api/proxy/image")({
   server: {
     handlers: {
       GET: async ({ request }) => {
         try {
-          const { searchParams } = new URL(request.url);
-          const imageUrl = searchParams.get("url");
+          await requireUser(request);
+        } catch (r) {
+          return r as Response;
+        }
 
-          if (!imageUrl) {
-            console.error("Parameter URL gambar tidak ada");
-            return Response.json({ error: "Parameter URL gambar tidak ada" }, { status: 400 });
-          }
+        const { searchParams } = new URL(request.url);
+        const imageUrl = searchParams.get("url");
+        if (!imageUrl) {
+          return Response.json({ error: "Parameter URL gambar tidak ada" }, { status: 400 });
+        }
 
-          let parsedUrl: URL;
-          try {
-            parsedUrl = new URL(imageUrl);
-          } catch (_error) {
-            console.error(`Format URL gambar tidak valid: ${imageUrl}`);
-            return Response.json({ error: "Format URL gambar tidak valid" }, { status: 400 });
-          }
+        let safeUrl: URL;
+        try {
+          safeUrl = await assertPublicHttpUrl(imageUrl);
+        } catch {
+          return Response.json({ error: "URL gambar tidak diizinkan" }, { status: 400 });
+        }
 
-          if (parsedUrl.protocol !== "http:" && parsedUrl.protocol !== "https:") {
-            console.error(`Protokol URL tidak didukung: ${parsedUrl.protocol}`);
-            return Response.json({ error: "Hanya protokol HTTP dan HTTPS yang didukung" }, { status: 400 });
-          }
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+        try {
+          let current = safeUrl;
+          let response: Response | null = null;
 
-          let response: Response;
-          try {
-            response = await fetch(imageUrl, {
+          for (let hop = 0; hop <= MAX_REDIRECTS; hop++) {
+            const res = await fetch(current.toString(), {
+              redirect: "manual",
+              signal: controller.signal,
               headers: {
-                "User-Agent":
-                  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+                "User-Agent": "CV-Buff-ImageProxy/1.0",
                 Accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
-                "Accept-Language": "id-ID,id;q=0.9,en;q=0.8",
-                Referer: parsedUrl.origin
-              }
+              },
             });
-          } catch (error: any) {
-            console.error(`Gagal mengambil gambar: ${error.message || "Kesalahan tidak diketahui"}`);
-            return Response.json({ error: `Gagal mengambil gambar: ${error.message || "Kesalahan tidak diketahui"}` }, { status: 500 });
+
+            if (res.status >= 300 && res.status < 400) {
+              const loc = res.headers.get("location");
+              if (!loc) return Response.json({ error: "Gagal mengambil gambar" }, { status: 502 });
+              // Re-validate every redirect hop against the SSRF guard.
+              current = await assertPublicHttpUrl(new URL(loc, current).toString());
+              continue;
+            }
+            response = res;
+            break;
           }
 
+          if (!response) {
+            return Response.json({ error: "Terlalu banyak pengalihan" }, { status: 502 });
+          }
           if (!response.ok) {
-            console.error(`Server gambar mengembalikan error: ${response.status} ${response.statusText}`);
-            return Response.json({ error: `Gagal mengambil gambar: ${response.status} ${response.statusText}` }, { status: response.status });
+            return Response.json({ error: "Gagal mengambil gambar" }, { status: 502 });
           }
 
-          let imageBuffer: ArrayBuffer;
-          try {
-            imageBuffer = await response.arrayBuffer();
-          } catch (error: any) {
-            console.error(`Gagal membaca konten gambar: ${error.message || "Kesalahan tidak diketahui"}`);
-            return Response.json({ error: `Gagal membaca konten gambar: ${error.message || "Kesalahan tidak diketahui"}` }, { status: 500 });
+          const contentType = response.headers.get("content-type") || "application/octet-stream";
+          if (!contentType.startsWith("image/")) {
+            return Response.json({ error: "Konten bukan gambar" }, { status: 415 });
+          }
+          const declaredLen = Number(response.headers.get("content-length") || "0");
+          if (declaredLen && declaredLen > MAX_BYTES) {
+            return Response.json({ error: "Gambar terlalu besar" }, { status: 413 });
           }
 
-          if (imageBuffer.byteLength === 0) {
-            console.error("Konten gambar kosong");
+          const buffer = await response.arrayBuffer();
+          if (buffer.byteLength === 0) {
             return Response.json({ error: "Konten gambar kosong" }, { status: 400 });
           }
+          if (buffer.byteLength > MAX_BYTES) {
+            return Response.json({ error: "Gambar terlalu besar" }, { status: 413 });
+          }
 
-          const contentType = response.headers.get("content-type") || "image/jpeg";
-
-          return new Response(imageBuffer, {
+          return new Response(buffer, {
             headers: {
               "Content-Type": contentType,
-              "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
-              Pragma: "no-cache",
-              Expires: "0",
-              "Surrogate-Control": "no-store",
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Methods": "GET, OPTIONS",
-              "Access-Control-Allow-Headers": "Content-Type"
-            }
+              "Cache-Control": "private, no-store",
+              "X-Content-Type-Options": "nosniff",
+            },
           });
-        } catch (error: any) {
-          console.error("Error tak tertangani pada image proxy:", error);
-          return Response.json({ error: `Terjadi kesalahan saat memproses permintaan gambar: ${error.message || "Kesalahan tidak diketahui"}` }, { status: 500 });
+        } catch {
+          return Response.json({ error: "Gagal mengambil gambar" }, { status: 502 });
+        } finally {
+          clearTimeout(timer);
         }
-      }
-    }
-  }
+      },
+    },
+  },
 });

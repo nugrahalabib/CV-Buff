@@ -136,7 +136,11 @@ pnpm dev          # http://localhost:1713
 docker compose up -d --build
 docker compose exec web pnpm db:migrate   # sekali saja, setelah deploy pertama
 ```
-`docker-compose.yml` sudah memuat `.env` (`env_file`) dan menyimpan DB di volume `cvbuff-data` (persisten antar-restart).
+`docker-compose.yml` memuat `.env` (`env_file`) dan menjalankan **hanya** service `web` (stateless — semua state ada di Postgres + browser).
+
+> ⚠️ **Postgres TERPISAH dari compose ini.** DB berjalan di container `postgres_container` di host (dijangkau via `host.docker.internal:5432`), **bukan** di compose ini — tidak ada service `postgres` maupun blok `volumes:` di sini. Ketahanan data CV bergantung pada container Postgres itu memakai **named volume**. Verifikasi sekali: `docker inspect postgres_container --format '{{json .Mounts}}'` → pastikan mount `/var/lib/postgresql/data` ber-`Type: volume` dengan `Name` stabil (bukan anonymous/bind sementara yang bisa hilang saat container di-recreate).
+>
+> 💾 **Wajib backup sebelum tiap deploy/upgrade** (zero data loss): `pg_dump -Fc -d cvbuff -f cvbuff_$(date +%F_%H%M).dump`. Skema `ensureSchema` (src/lib/server/db.ts) bersifat **aditif** (`CREATE TABLE/INDEX IF NOT EXISTS`, tanpa `DROP`/`ALTER`), jadi re-deploy/boot ulang **tidak** menghapus data. Container `web` stateless + `restart: always`, jadi app tetap jalan lintas restart/upgrade selama volume DB eksternal durable.
 
 ---
 

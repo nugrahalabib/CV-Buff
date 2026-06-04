@@ -5,7 +5,7 @@
   "type": "module",
   "license": "MIT",
   "author": "Nugraha Labib Mujaddid",
-  "description": "Editor CV open-source berbasis AI. Gratis, privasi-pertama, semua data tersimpan lokal di browser.",
+  "description": "Editor CV open-source berbasis AI. Gratis, privasi-pertama, CV terisolasi per-akun.",
   "packageManager": "pnpm@10.3.0",
   "scripts": {
     "dev": "vite dev",
@@ -54,7 +54,6 @@
     "@tiptap/extension-underline": "^3.21.0",
     "@tiptap/react": "^3.21.0",
     "@tiptap/starter-kit": "^3.21.0",
-    "@vercel/analytics": "^1.5.0",
     "better-auth": "^1.6.14",
     "chrome-aws-lambda": "^10.1.0",
     "class-variance-authority": "^0.7.1",
@@ -63,8 +62,6 @@
     "date-fns": "^3.6.0",
     "dayjs": "^1.11.12",
     "framer-motion": "^11.11.10",
-    "html2canvas": "^1.4.1",
-    "html2pdf.js": "^0.10.2",
     "lodash": "^4.17.21",
     "lucide-react": "^0.379.0",
     "mark.js": "^8.11.1",
@@ -111,5 +108,10 @@
     "vite": "^7.3.1",
     "vite-tsconfig-paths": "^6.1.1",
     "wrangler": "^4.19.1"
+  },
+  "pnpm": {
+    "overrides": {
+      "next": ">=14.2.25"
+    }
   }
 }
