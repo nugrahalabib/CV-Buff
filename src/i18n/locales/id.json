@@ -219,9 +219,23 @@
     },
     "templates": {
       "title": "Template",
+      "subtitle": "Pilih titik awal — semua bisa kamu ubah nanti di editor.",
+      "reassure": "Tenang, semua warna dan tata letak bisa kamu sesuaikan setelah dibuat.",
       "useTemplate": "Gunakan Template",
       "preview": "Pratinjau",
       "switchTemplate": "Ganti Template",
+      "colorLabel": "Warna",
+      "colorOriginal": "Warna asli template",
+      "colorOriginalShort": "Asli",
+      "color": {
+        "blue": "Biru",
+        "green": "Hijau",
+        "purple": "Ungu",
+        "orange": "Oranye",
+        "red": "Merah",
+        "slate": "Abu-abu",
+        "black": "Hitam"
+      },
       "classic": {
         "name": "Klasik",
         "description": "Tata letak tradisional minimalis, cocok untuk sebagian besar lamaran kerja"

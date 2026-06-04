@@ -219,9 +219,23 @@
     },
     "templates": {
       "title": "Templates",
+      "subtitle": "Pick a starting point — you can change everything later in the editor.",
+      "reassure": "Relax — every color and layout can be adjusted after you start.",
       "useTemplate": "Use Template",
       "preview": "Preview",
       "switchTemplate": "Switch Template",
+      "colorLabel": "Color",
+      "colorOriginal": "Template's original color",
+      "colorOriginalShort": "Orig",
+      "color": {
+        "blue": "Blue",
+        "green": "Green",
+        "purple": "Purple",
+        "orange": "Orange",
+        "red": "Red",
+        "slate": "Slate",
+        "black": "Black"
+      },
       "classic": {
         "name": "Classic",
         "description": "Traditional and minimalist layout, suitable for most job applications"
