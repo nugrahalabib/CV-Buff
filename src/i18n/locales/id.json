@@ -27,11 +27,16 @@
       "dashboard": "Dashboard"
     },
     "hero": {
-      "badge": "Pembuatan CV Cerdas",
-      "title": "Buat CV Anda Lebih Mudah dan Cerdas",
-      "subtitle": "CV-Buff menggunakan teknologi AI untuk membantu Anda membuat CV profesional dengan cepat. Tanpa registrasi, gratis digunakan, dengan penyimpanan data yang aman.",
-      "cta": "Mulai Sekarang",
-      "secondary": "Lihat Template"
+      "badge": "100% ATS-Friendly & Lolos Screening AI",
+      "badgePowered": "Powered by AgentBuff MCP",
+      "title": "Tembus Filter HRD Otomatis.",
+      "titleAccent": "App bisa diintegrasikan sebagai Skill untuk Agen AI Anda.",
+      "subtitle": "Rakit & Update selalu CV profesional Anda dalam hitungan menit. Tanpa biaya tersembunyi, 100% gratis selamanya.",
+      "cta": "Daftar & Buat CV Gratis",
+      "secondary": "Lihat Template",
+      "trust1": "Proses < 2 Menit",
+      "trust2": "Ekspor Instan",
+      "trust3": "Data Terenkripsi"
     },
     "features": {
       "title": "Mengapa memilih CV-Buff?",

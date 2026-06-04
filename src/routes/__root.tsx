@@ -55,8 +55,10 @@ function RootComponent() {
     <html lang={locale} suppressHydrationWarning>
       <head>
         <HeadContent />
-        <link rel="icon" href="/favicon.ico?v=2" />
-        <link rel="icon" href="/icon.png" />
+        <link rel="icon" href="/favicon.ico?v=3" sizes="32x32" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png?v=3" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/icon.png?v=3" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3" />
       </head>
       <body>
         <NextIntlClientProvider

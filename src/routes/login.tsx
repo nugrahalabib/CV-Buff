@@ -37,8 +37,8 @@ function LoginPage() {
         <img src="/logo.svg" alt="CV-Buff" className="h-10 mx-auto mb-6" />
         <h1 className="text-xl font-semibold mb-1">Masuk ke CV-Buff</h1>
         <p className="text-sm text-muted-foreground mb-6">
-          Daftar gratis untuk mulai membuat CV profesional. Data CV-mu tetap
-          tersimpan privat di perangkatmu.
+          Daftar gratis untuk mulai membuat CV profesional. CV-mu tersimpan aman
+          di akunmu dan terisolasi penuh dari pengguna lain.
         </p>
 
         <button

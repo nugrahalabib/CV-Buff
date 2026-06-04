@@ -27,11 +27,16 @@
       "dashboard": "Dashboard"
     },
     "hero": {
-      "badge": "Smart Resume Creation",
-      "title": "Make Resume Creation Simple and Smart",
-      "subtitle": "CV-Buff uses AI technology to help you quickly create professional resumes. No registration required, free to use, with secure data storage.",
-      "cta": "Get Started",
-      "secondary": "Browse Templates"
+      "badge": "100% ATS-Friendly & Passes AI Screening",
+      "badgePowered": "Powered by AgentBuff MCP",
+      "title": "Beat Automated HR Filters.",
+      "titleAccent": "The App Integrates as a Skill for Your AI Agent.",
+      "subtitle": "Build & always update your professional resume in minutes. No hidden costs, 100% free forever.",
+      "cta": "Sign Up & Build Your CV Free",
+      "secondary": "Browse Templates",
+      "trust1": "Under 2 Minutes",
+      "trust2": "Instant Export",
+      "trust3": "Encrypted Data"
     },
     "features": {
       "title": "Why Choose CV-Buff?",

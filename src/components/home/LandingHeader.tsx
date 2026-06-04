@@ -44,9 +44,10 @@ export default function LandingHeader() {
 
               <GoDashboard>
                 <Button
-                  className="rounded-xl px-6 h-10 font-medium transition-all hover:opacity-90 active:scale-95"
+                  variant="ghost"
+                  className="rounded-xl px-4 h-10 font-medium text-foreground/70 hover:text-foreground hover:bg-accent/60 transition-colors active:scale-95"
                 >
-                  {t("header.startButton")}
+                  {t("header.login")}
                 </Button>
               </GoDashboard>
             </div>
@@ -68,7 +69,7 @@ export default function LandingHeader() {
       <MobileMenu
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
-        buttonText={t("header.startButton")}
+        buttonText={t("header.login")}
       />
     </>
   );
